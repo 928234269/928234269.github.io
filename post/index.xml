@@ -7,18 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
     <copyright>All rights reserved - 2017</copyright>
-    <lastBuildDate>Fri, 30 Aug 2019 15:25:28 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Aug 2019 16:54:28 +0800</lastBuildDate>
     
 	<atom:link href="https://928234269.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>test</title>
-      <link>https://928234269.github.io/post/scala-learning-pattern-matching/</link>
-      <pubDate>Fri, 30 Aug 2019 15:25:28 +0800</pubDate>
+      <title>Tf Gpu Usage Toolow</title>
+      <link>https://928234269.github.io/post/tf-gpu-usage-toolow/</link>
+      <pubDate>Fri, 30 Aug 2019 16:54:28 +0800</pubDate>
       
-      <guid>https://928234269.github.io/post/scala-learning-pattern-matching/</guid>
-      <description></description>
+      <guid>https://928234269.github.io/post/tf-gpu-usage-toolow/</guid>
+      <description>在构造tf.Session()时候通过传递tf.GPUOptions作为可选配置参数的一部分来显式地指定需要分配的显存比例，如下所示：
+在tensorflow训练文件里写入
+# 假如有12GB的显存并使用其中的4GB: gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) # 一开始就给全部的gpu资源 config.gpu_options.allow_growth = False # 如果如下设置,开始不会给tensorflow全部gpu资源 而是按需增加 config.gpu_options.allow_growth = True  https://blog.csdn.net/sunwuhuang1/article/details/53946462/ https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto</description>
     </item>
     
   </channel>

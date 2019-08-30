@@ -13,15 +13,15 @@
 
 
 
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="Tensorflow"/>
 <meta name="twitter:description" content="知其雄，守其雌，为天下溪。"/>
 <meta name="twitter:site" content="@"/>
 
 
 
-  	<meta property="og:title" content="Tags &middot; 君陌的Github Page" />
+  	<meta property="og:title" content="Tensorflow &middot; 君陌的Github Page" />
   	<meta property="og:site_name" content="君陌的Github Page" />
-  	<meta property="og:url" content="https://928234269.github.io/tags/" />
+  	<meta property="og:url" content="https://928234269.github.io/tags/tensorflow/" />
 
     
         
@@ -34,7 +34,7 @@
     <meta property="og:description" content="知其雄，守其雌，为天下溪。" />
     
 
-    <title>Tags &middot; 君陌的Github Page</title>
+    <title>Tensorflow &middot; 君陌的Github Page</title>
 
     
     <meta name="description" content="知其雄，守其雌，为天下溪。" />
@@ -58,12 +58,12 @@
           <link href="https://928234269.github.io/index.xml" rel="alternate" type="application/rss+xml" title="君陌的Github Page" />
       
       
-        <link href="https://928234269.github.io/tags/index.xml" rel="alternate" type="application/rss+xml" title="Tags &middot; 君陌的Github Page" />
+        <link href="https://928234269.github.io/tags/tensorflow/index.xml" rel="alternate" type="application/rss+xml" title="Tensorflow &middot; 君陌的Github Page" />
       
     
     <meta name="generator" content="Hugo 0.54.0" />
 
-    <link rel="canonical" href="https://928234269.github.io/tags/" />
+    <link rel="canonical" href="https://928234269.github.io/tags/tensorflow/" />
 
     
       
@@ -137,7 +137,7 @@
     </ul>
 
     
-    <a class="subscribe-button icon-feed" href="https://928234269.github.io/tags/index.xml">Subscribe</a>
+    <a class="subscribe-button icon-feed" href="https://928234269.github.io/tags/tensorflow/index.xml">Subscribe</a>
     
 </div>
 <span class="nav-cover"></span>
@@ -162,7 +162,7 @@
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
-            <h1 class="page-title">Tags</h1>
+            <h1 class="page-title">Tensorflow</h1>
             <h2 class="page-description">
                 
             </h2>
@@ -183,13 +183,15 @@
 	</div>
 
 	
-	   <article class="post tags">
+	   <article class="post post">
     <header class="post-header">
-        <h2 class="post-title"><a href="https://928234269.github.io/tags/gpu/">Gpu</a></h2>
+        <h2 class="post-title"><a href="https://928234269.github.io/post/tf-gpu-usage-toolow/">Tf Gpu Usage Toolow</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p> <a class="read-more" href="https://928234269.github.io/tags/gpu/">&raquo;</a></p>
+            <p>在构造tf.Session()时候通过传递tf.GPUOptions作为可选配置参数的一部分来显式地指定需要分配的显存比例，如下所示：
+在tensorflow训练文件里写入
+# 假如有12GB的显存并使用其中的4GB: gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) # 一开始就给全部的gpu资源 config.gpu_options.allow_growth = False # 如果如下设置,开始不会给tensorflow全部gpu资源 而是按需增加 config.gpu_options.allow_growth = True  https://blog.csdn.net/sunwuhuang1/article/details/53946462/ https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto <a class="read-more" href="https://928234269.github.io/post/tf-gpu-usage-toolow/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
@@ -208,39 +210,12 @@
                  
         
 
-        
-        <time class="post-date" datetime="2019-08-30T16:54:28&#43;08:00">
-            30 Aug 2019
-        </time>
-    </footer>
-</article>
-
-	
-	   <article class="post tags">
-    <header class="post-header">
-        <h2 class="post-title"><a href="https://928234269.github.io/tags/tensorflow/">Tensorflow</a></h2>
-    </header>
-    <section class="post-excerpt">
-        
-            <p> <a class="read-more" href="https://928234269.github.io/tags/tensorflow/">&raquo;</a></p>
-        
-    </section>
-    <footer class="post-meta">
-        
-
-        
+        on
             
+                <a href="https://928234269.github.io//tags/tensorflow/">#tensorflow</a>,
             
-
+                <a href="https://928234269.github.io//tags/gpu/">#gpu</a>,
             
-            <img class="author-thumb" src="https://928234269.github.io/images/lufei.jpeg" alt="Author image" nopin="nopin" />
-            
-            
-            
-            君陌
-                 
-        
-
         
         <time class="post-date" datetime="2019-08-30T16:54:28&#43;08:00">
             30 Aug 2019

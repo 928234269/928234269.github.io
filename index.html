@@ -225,11 +225,13 @@
     
         <article class="post post">
     <header class="post-header">
-        <h2 class="post-title"><a href="https://928234269.github.io/post/scala-learning-pattern-matching/">test</a></h2>
+        <h2 class="post-title"><a href="https://928234269.github.io/post/tf-gpu-usage-toolow/">Tf Gpu Usage Toolow</a></h2>
     </header>
     <section class="post-excerpt">
         
-            <p> <a class="read-more" href="https://928234269.github.io/post/scala-learning-pattern-matching/">&raquo;</a></p>
+            <p>在构造tf.Session()时候通过传递tf.GPUOptions作为可选配置参数的一部分来显式地指定需要分配的显存比例，如下所示：
+在tensorflow训练文件里写入
+# 假如有12GB的显存并使用其中的4GB: gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.333) sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) # 一开始就给全部的gpu资源 config.gpu_options.allow_growth = False # 如果如下设置,开始不会给tensorflow全部gpu资源 而是按需增加 config.gpu_options.allow_growth = True  https://blog.csdn.net/sunwuhuang1/article/details/53946462/ https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto <a class="read-more" href="https://928234269.github.io/post/tf-gpu-usage-toolow/">&raquo;</a></p>
         
     </section>
     <footer class="post-meta">
@@ -250,14 +252,12 @@
 
         on
             
-                <a href="https://928234269.github.io//tags/scala/">#scala</a>,
+                <a href="https://928234269.github.io//tags/tensorflow/">#tensorflow</a>,
             
-                <a href="https://928234269.github.io//tags/pattern-matching/">#pattern matching</a>,
-            
-                <a href="https://928234269.github.io//tags/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">#模式匹配</a>,
+                <a href="https://928234269.github.io//tags/gpu/">#gpu</a>,
             
         
-        <time class="post-date" datetime="2019-08-30T15:25:28&#43;08:00">
+        <time class="post-date" datetime="2019-08-30T16:54:28&#43;08:00">
             30 Aug 2019
         </time>
     </footer>
