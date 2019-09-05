@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
     <copyright>All rights reserved - 2017</copyright>
-    <lastBuildDate>Fri, 30 Aug 2019 16:54:28 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Sep 2019 17:24:50 +0800</lastBuildDate>
     
 	<atom:link href="https://928234269.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s Ha Deploy</title>
+      <link>https://928234269.github.io/post/kubernetes-ha-deploy/</link>
+      <pubDate>Thu, 05 Sep 2019 17:24:50 +0800</pubDate>
+      
+      <guid>https://928234269.github.io/post/kubernetes-ha-deploy/</guid>
+      <description>集群方案： - 发行版：CentOS 7.6 - 容器运行时: 19.03.2 - 内核：3.10.0-957.27.2.el7.x86_64 - 版本：Kubernetes: 1.15.3 - 网络方案: Calico - kube-proxy mode: IPVS - master高可用方案：HAProxy keepalived LVS - DNS插件: CoreDNS - metrics插件：metrics-server
+Kubernetes集群搭建    Host Name Role IP     ha-master0 ha-master0 192.168.1.166   ha-master1 ha-master1 192.168.1.167   ha-master2 ha-master2 192.168.1.168   ha-node0 ha-node0 192.168.1.169   Ha-node1 Ha-node1 192.168.1.170    1、下载安装包（基于能够访问外网的服务器下载相应安装包）
+# 设置yum缓存路径，cachedir 缓存路径 keepcache=1保持安装包在软件安装之后不删除 cat /etc/yum.</description>
+    </item>
     
     <item>
       <title>Tf Gpu Usage Toolow</title>
