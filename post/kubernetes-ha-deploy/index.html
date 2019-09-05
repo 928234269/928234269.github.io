@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content="K8s Ha Deploy"/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content="K8s Ha Deploy &middot; 君陌的Github Page" />
+  	<meta property="og:site_name" content="君陌的Github Page" />
+  	<meta property="og:url" content="https://928234269.github.io/post/kubernetes-ha-deploy/" />
+
+    
+        
+            <meta property="og:image" content="/images/bgi.jpg"/>
+        
+    
+
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2019-09-05T17:24:50&#43;08:00" />
+
+    
+    <meta property="article:tag" content="kubernetes" />
+    
+    <meta property="article:tag" content="高可用" />
+    
+    <meta property="article:tag" content="v1.15.3" />
+    
+    
+
+    <title>K8s Ha Deploy &middot; 君陌的Github Page</title>
+
+    
+    <meta name="description" content="集群方案： - 发行版：CentOS 7.6 - 容器运行时: 19.03.2 - 内核：3.10.0-957.27.2.el7.x86_64 - 版本：Kubernetes: 1.15.3 - 网络方案: Calico - kube-proxy mode: IPVS - master高可用方案：HAProxy kee" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://928234269.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="https://928234269.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://928234269.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://928234269.github.io/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="https://928234269.github.io/index.xml" rel="alternate" type="application/rss+xml" title="君陌的Github Page" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.54.0" />
+
+    <link rel="canonical" href="https://928234269.github.io/post/kubernetes-ha-deploy/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": ,
+        "logo": https://928234269.github.io/images/lufei.jpeg
+    },
+    "author": {
+        "@type": "Person",
+        "name": ,
+        
+        "image": {
+            "@type": "ImageObject",
+            "url": https://928234269.github.io/images/lufei.jpeg,
+            "width": 250,
+            "height": 250
+        }, 
+        
+        "url": https://928234269.github.io/,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": K8s Ha Deploy,
+    "name": K8s Ha Deploy,
+    "wordCount": 550,
+    "timeRequired": "PT3M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": en
+    },
+    "url": https://928234269.github.io/post/kubernetes-ha-deploy/,
+    "datePublished": 2019-09-05T17:24Z,
+    "dateModified": 2019-09-05T17:24Z,
+    
+    "keywords": kubernetes, 高可用, v1.15.3,
+    "description": ,
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": https://928234269.github.io/post/kubernetes-ha-deploy/
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://928234269.github.io/about">About me</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://928234269.github.io/">君陌的博客</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="https://928234269.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="https://928234269.github.io/"><img src="https://928234269.github.io/images/lufei.jpeg" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">K8s Ha Deploy</h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2019-09-05T17:24:50&#43;08:00">
+            Sep 5, 2019
+          </time>
+        
+         
+          <span class="post-tag small"><a href="https://928234269.github.io//tags/kubernetes/">#kubernetes</a></span>
+         
+          <span class="post-tag small"><a href="https://928234269.github.io//tags/%E9%AB%98%E5%8F%AF%E7%94%A8/">#高可用</a></span>
+         
+          <span class="post-tag small"><a href="https://928234269.github.io//tags/v1.15.3/">#v1.15.3</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>集群方案：
+- 发行版：CentOS 7.6
+- 容器运行时: 19.03.2
+- 内核：3.10.0-957.27.2.el7.x86_64
+- 版本：Kubernetes: 1.15.3
+- 网络方案: Calico
+- kube-proxy mode: IPVS
+- master高可用方案：HAProxy keepalived LVS
+- DNS插件: CoreDNS
+- metrics插件：metrics-server</p>
+
+<h3 id="kubernetes集群搭建">Kubernetes集群搭建</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">Host Name</th>
+<th align="center">Role</th>
+<th align="center">IP</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">ha-master0</td>
+<td align="center">ha-master0</td>
+<td align="center">192.168.1.166</td>
+</tr>
+
+<tr>
+<td align="center">ha-master1</td>
+<td align="center">ha-master1</td>
+<td align="center">192.168.1.167</td>
+</tr>
+
+<tr>
+<td align="center">ha-master2</td>
+<td align="center">ha-master2</td>
+<td align="center">192.168.1.168</td>
+</tr>
+
+<tr>
+<td align="center">ha-node0</td>
+<td align="center">ha-node0</td>
+<td align="center">192.168.1.169</td>
+</tr>
+
+<tr>
+<td align="center">Ha-node1</td>
+<td align="center">Ha-node1</td>
+<td align="center">192.168.1.170</td>
+</tr>
+</tbody>
+</table>
+
+<p>1、下载安装包（基于能够访问外网的服务器下载相应安装包）</p>
+
+<pre><code># 设置yum缓存路径，cachedir 缓存路径 keepcache=1保持安装包在软件安装之后不删除
+cat /etc/yum.conf  
+[main]
+cachedir=/home/yum
+keepcache=1
+...
+
+# 安装ifconfig
+yum install  -y net-tools
+
+# 时间同步
+yum install -y ntpdate
+
+# 安装docker（建议19.8.06）
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager \
+ --add-repo \
+ https://download.docker.com/linux/centos/docker-ce.repo
+yum makecache fast
+## 列出Docker版本
+yum list docker-ce --showduplicates | sort -r
+## 安装指定版本
+sudo yum install docker-ce-&lt;VERSION_STRING&gt;
+
+# 安装文件管理器，XShell可通过rz sz命令上传或者下载服务器文件
+yum intall lrzsz -y
+
+# 安装keepalived、haproxy
+yum install -y socat keepalived ipvsadm haproxy
+
+# 安装kubernetes相关组件
+cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+yum install -y kubelet kubeadm kubectl ebtables
+
+# 其他软件安装
+yum install wget
+...
+</code></pre>
+
+<p>2、节点系统配置</p>
+
+<ul>
+<li>关闭SELinux、防火墙</li>
+</ul>
+
+<pre><code>  systemctl stop firewalld
+  systemctl disable firewalld
+  setenforce 0
+  sed -i &quot;s/SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config
+</code></pre>
+
+<ul>
+<li>关闭系统的Swap（Kubernetes 1.8开始要求）</li>
+</ul>
+
+<pre><code>  swapoff -a
+  yes | cp /etc/fstab /etc/fstab_bak
+  cat /etc/fstab_bak |grep -v swap &gt; /etc/fstab
+</code></pre>
+
+<ul>
+<li>配置L2网桥在转发包时会被iptables的FORWARD规则所过滤，该配置被CNI插件需要，更多信息请参考<a href="https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements">Network Plugin Requirements</a></li>
+</ul>
+
+<pre><code>  echo &quot;&quot;&quot;
+  vm.swappiness = 0
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  &quot;&quot;&quot; &gt; /etc/sysctl.conf
+  sysctl -p
+</code></pre>
+
+<p>如果出错执行,modprobe br_netfilter</p>
+
+<ul>
+<li>同步时间</li>
+</ul>
+
+<pre><code>  ntpdate -u ntp.api.bz
+</code></pre>
+
+<ul>
+<li>重启系统，确认内核版本后，开启IPVS（如果未升级内核，去掉ip_vs_fo）</li>
+</ul>
+
+<pre><code>  uname -a
+  cat &gt; /etc/sysconfig/modules/ipvs.modules &lt;&lt;EOF
+  #!/bin/bash
+  ipvs_modules=&quot;ip_vs ip_vs_lc ip_vs_wlc ip_vs_rr ip_vs_wrr   ip_vs_lblc ip_vs_lblcr ip_vs_dh ip_vs_sh ip_vs_nq ip_vs_sed ip_vs_ftp nf_conntrack&quot;
+  for kernel_module in \${ipvs_modules}; do
+      /sbin/modinfo -F filename \${kernel_module} &gt; /dev/null 2&gt;&amp;1
+      if [ $? -eq 0 ]; then
+          /sbin/modprobe \${kernel_module}
+      fi
+  done
+  EOF
+  chmod 755 /etc/sysconfig/modules/ipvs.modules &amp;&amp; bash /etc/sysconfig/modules/ipvs.modules &amp;&amp; lsmod | grep ip_vs
+</code></pre>
+
+<p>执行sysctl -p报错可执行modprobe br_netfilter.</p>
+
+<ul>
+<li>所有机器需要设定/etc/sysctl.d/k8s.conf的系统参数</li>
+</ul>
+
+<pre><code>  # https://github.com/moby/moby/issues/31208 
+  # ipvsadm -l --timout
+  # 修复ipvs模式下长连接timeout问题 小于900即可
+  cat &lt;&lt;EOF &gt; /etc/sysctl.d/k8s.conf
+  net.ipv4.tcp_keepalive_time = 600
+  net.ipv4.tcp_keepalive_intvl = 30
+  net.ipv4.tcp_keepalive_probes = 10
+  net.ipv6.conf.all.disable_ipv6 = 1
+  net.ipv6.conf.default.disable_ipv6 = 1
+  net.ipv6.conf.lo.disable_ipv6 = 1
+  net.ipv4.neigh.default.gc_stale_time = 120
+  net.ipv4.conf.all.rp_filter = 0
+  net.ipv4.conf.default.rp_filter = 0
+  net.ipv4.conf.default.arp_announce = 2
+  net.ipv4.conf.lo.arp_announce = 2
+  net.ipv4.conf.all.arp_announce = 2
+  net.ipv4.ip_forward = 1
+  net.ipv4.tcp_max_tw_buckets = 5000
+  net.ipv4.tcp_syncookies = 1
+  net.ipv4.tcp_max_syn_backlog = 1024
+  net.ipv4.tcp_synack_retries = 2
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  net.netfilter.nf_conntrack_max = 2310720
+  fs.inotify.max_user_watches=89100
+  fs.may_detach_mounts = 1
+  fs.file-max = 52706963
+  fs.nr_open = 52706963
+  net.bridge.bridge-nf-call-arptables = 1
+  vm.swappiness = 0
+  vm.overcommit_memory=1
+  vm.panic_on_oom=0
+  EOF
+  sysctl --system
+</code></pre>
+
+<ul>
+<li>设置开机启动</li>
+</ul>
+
+<pre><code>  # 启动docker
+  sed -i &quot;13i ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT&quot; /usr/lib/systemd/system/docker.service
+  systemctl daemon-reload
+  systemctl enable docker
+  systemctl start docker
+  # 设置kubelet开机启动
+  systemctl enable kubelet
+  
+  systemctl enable keepalived
+  systemctl enable haproxy
+</code></pre>
+
+<ul>
+<li>设置免密登录</li>
+</ul>
+
+<pre><code>  # 1、三次回车后，密钥生成完成
+  ssh-keygen
+  # 2、拷贝密钥到其他节点
+  ssh-copy-id -i ~/.ssh/id_rsa.pub  username@192.168.x.xxx
+</code></pre>
+
+<p>3、keepalived+haproxy配置</p>
+
+<pre><code class="language-cd"># 所有节点执行
+echo &quot;&quot;&quot;
+CP0_IP=192.168.1.166
+CP1_IP=192.168.1.167
+CP2_IP=192.168.1.168
+VIP=192.168.1.165
+NET_IF=ens160
+CIDR=10.244.0.0/16
+&quot;&quot;&quot; &gt; ./cluster-info
+bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/hnbcao/kubeadm-ha-master/v1.14.0/keepalived-haproxy.sh)&quot;
+</code></pre>
+
+<p>4、部署HA Master</p>
+
+<p>1)、kubelet reset</p>
+
+<pre><code>kubeadm reset -f
+rm -rf /etc/kubernetes/pki/
+</code></pre>
+
+<p>2)、初始化master0的kubelet</p>
+
+<pre><code>echo &quot;&quot;&quot;
+apiVersion: kubeadm.k8s.io/v1beta1
+kind: ClusterConfiguration
+kubernetesVersion: v1.15.3
+controlPlaneEndpoint: &quot;192.168.1.165:8443&quot;
+maxPods: 100
+networkPlugin: cni
+imageRepository: registry.aliyuncs.com/google_containers
+apiServer:
+  certSANs:
+  - 192.168.1.166
+  - 192.168.1.167
+  - 192.168.1.168
+  - 192.168.1.165
+networking:
+  # This CIDR is a Calico default. Substitute or remove for your CNI provider.
+  podSubnet: 10.244.0.0/16
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: ipvs
+&quot;&quot;&quot; &gt; /etc/kubernetes/kubeadm-config.yaml
+
+kubeadm init --config=kubeadm-config.yaml --upload-certs
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre>
+
+<p>3)、初始化master1,master2和node节点</p>
+
+<p>master节点执行先前由<code>kubeadm init</code>第一个节点上的输出的join命令</p>
+
+<pre><code>sudo kubeadm join 192.168.1.165:8443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre>
+
+<p>node节点执行先前由<code>kubeadm init</code>第二个节点上的输出的join命令</p>
+
+<pre><code>sudo kubeadm join 192.168.1.165:8443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+
+</code></pre>
+
+<p>4)、安装cni插件</p>
+
+<pre><code>kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+</code></pre>
+
+<p>5) 检查集群状态</p>
+
+<p>所有Pod处于&rdquo;Running&rdquo;集群则基本安装完毕</p>
+
+<pre><code>kubectl get pods --all-namespaces
+</code></pre>
+
+<p>参考:</p>
+
+<p>1.<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/</a></p>
+
+<p>2.<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/</a></p>
+
+<p>3.<a href="https://www.kubernetes.org.cn/5273.html">https://www.kubernetes.org.cn/5273.html</a></p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+<figure class="author-image">
+    <a class="img" href="https://928234269.github.io/" style="background-image: url(/images/lufei.jpeg)"><span class="hidden">君陌's Picture</span></a>
+</figure>
+
+
+<section class="author">
+  <h4><a href="https://928234269.github.io/">君陌</a></h4>
+  
+  <p>Read <a href="https://928234269.github.io/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    <span class="author-location icon-location">Shanghai, China</span>
+    <span class="author-link icon-link"><a href="https://928234269.github.io/">https://928234269.github.io/</a></span>
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=K8s%20Ha%20Deploy&nbsp;-&nbsp;%e5%90%9b%e9%99%8c%e7%9a%84Github%20Page&amp;url=https%3a%2f%2f928234269.github.io%2fpost%2fkubernetes-ha-deploy%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2f928234269.github.io%2fpost%2fkubernetes-ha-deploy%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2f928234269.github.io%2fpost%2fkubernetes-ha-deploy%2f&amp;description=K8s%20Ha%20Deploy"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2f928234269.github.io%2fpost%2fkubernetes-ha-deploy%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/928234269.github.io\/post\/kubernetes-ha-deploy\/";  
+this.page.identifier = "https:\/\/928234269.github.io\/post\/kubernetes-ha-deploy\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://君陌.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+      <a class="read-next-story prev" style="no-cover" href="https://928234269.github.io/post/tf-gpu-usage-toolow/">
+          <section class="post">
+              <h2>Tf Gpu Usage Toolow</h2>
+          </section>
+      </a>
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">君陌的Github Page</a> All rights reserved - 2017</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="https://928234269.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="https://928234269.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://928234269.github.io/js/index.js"></script>
+    
+</body>
+</html>
+
