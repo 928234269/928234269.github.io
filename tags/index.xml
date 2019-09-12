@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
     <copyright>All rights reserved - 2017</copyright>
-    <lastBuildDate>Fri, 30 Aug 2019 16:54:28 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Sep 2019 19:55:08 +0800</lastBuildDate>
     
 	<atom:link href="https://928234269.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Centos7</title>
+      <link>https://928234269.github.io/tags/centos7/</link>
+      <pubDate>Thu, 12 Sep 2019 19:55:08 +0800</pubDate>
+      
+      <guid>https://928234269.github.io/tags/centos7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cuda</title>
+      <link>https://928234269.github.io/tags/cuda/</link>
+      <pubDate>Thu, 12 Sep 2019 19:55:08 +0800</pubDate>
+      
+      <guid>https://928234269.github.io/tags/cuda/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Gpu</title>
@@ -27,6 +45,15 @@
       <pubDate>Thu, 05 Sep 2019 17:24:50 +0800</pubDate>
       
       <guid>https://928234269.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nvidia Gpu驱动</title>
+      <link>https://928234269.github.io/tags/nvidia-gpu%E9%A9%B1%E5%8A%A8/</link>
+      <pubDate>Thu, 12 Sep 2019 19:55:08 +0800</pubDate>
+      
+      <guid>https://928234269.github.io/tags/nvidia-gpu%E9%A9%B1%E5%8A%A8/</guid>
       <description></description>
     </item>
     

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://928234269.github.io/post/centos7-gpu/</loc>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://928234269.github.io/post/kubernetes-ha-deploy/</loc>
     <lastmod>2019-09-05T17:24:50+08:00</lastmod>
   </url>
@@ -14,6 +19,18 @@
   
   <url>
     <loc>https://928234269.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://928234269.github.io/tags/centos7/</loc>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://928234269.github.io/tags/cuda/</loc>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -30,14 +47,20 @@
   </url>
   
   <url>
+    <loc>https://928234269.github.io/tags/nvidia-gpu%E9%A9%B1%E5%8A%A8/</loc>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://928234269.github.io/post/</loc>
-    <lastmod>2019-09-05T17:24:50+08:00</lastmod>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://928234269.github.io/tags/</loc>
-    <lastmod>2019-08-30T16:54:28+08:00</lastmod>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -55,7 +78,7 @@
   
   <url>
     <loc>https://928234269.github.io/</loc>
-    <lastmod>2019-09-05T17:24:50+08:00</lastmod>
+    <lastmod>2019-09-12T19:55:08+08:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -204,6 +204,8 @@
     
         
     
+        
+    
 
     
         
@@ -223,6 +225,53 @@
 </nav>
 
     </div>
+
+    
+        <article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="https://928234269.github.io/post/centos7-gpu/">Centos7 Gpu driver</a></h2>
+    </header>
+    <section class="post-excerpt">
+        
+            <p>在vsphere创建的虚拟机上安装nvidia-gpu驱动时和cuda,输入nvidia-smi时出现错误
+Unable to determine the device handle for GPU 0000:0B:00.0: Unknown Error
+查询后发现是需要设置一个虚拟机的参数然后重启虚拟机
+hypervisor.cpuid.v0 = FALSE
+在vsphere上找到虚拟机先关机,关机完成后点击编辑设置-虚拟机选项-高级&ndash;配置参数-编辑配置
+配置参数hypervisor.cpuid.v0 = FALSE,然后启动虚拟机.
+输入nvidia-smi,万事大吉啦. <a class="read-more" href="https://928234269.github.io/post/centos7-gpu/">&raquo;</a></p>
+        
+    </section>
+    <footer class="post-meta">
+        
+
+        
+            
+            
+
+            
+            <img class="author-thumb" src="https://928234269.github.io/images/lufei.jpeg" alt="Author image" nopin="nopin" />
+            
+            
+            
+            君陌
+                 
+        
+
+        on
+            
+                <a href="https://928234269.github.io//tags/centos7/">#centos7</a>,
+            
+                <a href="https://928234269.github.io//tags/nvidia-gpu%E9%A9%B1%E5%8A%A8/">#nvidia gpu驱动</a>,
+            
+                <a href="https://928234269.github.io//tags/cuda/">#cuda</a>,
+            
+        
+        <time class="post-date" datetime="2019-09-12T19:55:08&#43;08:00">
+            12 Sep 2019
+        </time>
+    </footer>
+</article>
 
     
         <article class="post post">
